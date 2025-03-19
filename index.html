@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Instagram</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        .fullscreen img, .fullscreen video {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 max-w-sm mx-auto">
+    <div class="flex justify-between items-center p-4 border-b border-gray-300 bg-white shadow-sm">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="h-8">
+        <strong class="text-lg">Instagram</strong>
+    </div>
+    
+    <div class="p-6">
+        <div class="flex items-center gap-5">
+            <img src="public\images\Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" alt="Perfil" class="w-24 h-20 rounded-full border-2 border-gray-300">
+            <div>
+                <h2 class="text-xl font-semibold">Nombre de Usuario</h2>
+                <div class="flex gap-4 text-gray-600 mt-2">
+                    <p><strong>6</strong> Publicaciones</p>
+                    <p><strong>+999</strong> Seguidores</p>
+                    <p><strong>+999</strong> Siguiendo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<hr>
+    <!-- Historias Destacadas -->
+    <div class="flex gap-4 p-4 overflow-x-auto">
+        <div class="flex flex-col items-center">
+            <img src="public\images\Imagen de WhatsApp 2025-03-19 a las 16.32.02_7ed71309.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
+            <p class="text-xs mt-1">Peque!😍</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="public\images\Imagen de WhatsApp 2025-03-19 a las 16.29.21_33ca8e9e.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
+            <p class="text-xs mt-1">🥰</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="public\images\Imagen de WhatsApp 2025-03-19 a las 16.16.47_5e66bf84.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
+            <p class="text-xs mt-1">🧃</p>
+        </div>
+    </div>
+    
+    <hr>
+    <div class="grid grid-cols-3 gap-1 p-2">
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+        
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_81a4e60e.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+
+        <video class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.14_20fe7754.mp4" type="video/mp4">
+        </video>
+        
+        <video class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.11_b30ddf43.mp4" type="video/mp4">
+        </video>
+        
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.16_c205d95d.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+        
+        <video class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.26_db177289.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Contenedor de pantalla completa -->
+    <div id="fullscreen-container" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center" onclick="hideFullscreen()">
+        <img id="fullscreen-image" class="rounded-lg hidden">
+        <video id="fullscreen-video" class="rounded-lg hidden" controls autoplay></video>
+    </div>
+
+    <script>
+        function showFullscreen(src, type) {
+            const container = document.getElementById('fullscreen-container');
+            const img = document.getElementById('fullscreen-image');
+            const video = document.getElementById('fullscreen-video');
+
+            if (type === 'image') {
+                img.src = src;
+                img.classList.remove('hidden');
+                video.classList.add('hidden');
+                video.pause();
+            } else if (type === 'video') {
+                video.src = src;
+                video.classList.remove('hidden');
+                img.classList.add('hidden');
+                video.play();
+            }
+
+            container.classList.remove('hidden');
+        }
+
+        function hideFullscreen() {
+            const container = document.getElementById('fullscreen-container');
+            const video = document.getElementById('fullscreen-video');
+
+            container.classList.add('hidden');
+            video.pause();
+            video.currentTime = 0; // Reinicia el video cuando se cierre
+        }
+    </script>
+</body>
+</html>
