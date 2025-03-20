@@ -3,209 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Instagram</title>
+    <title>Álbum - Instagram</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 100;
-            display: none;
-        }
-        .btn-next {
-            background: white;
-            color: #d62976;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s ease-in-out;
-        }
-        .btn-next:hover {
-            transform: scale(1.1);
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="bg-white text-gray-900 max-w-sm mx-auto">
     
-    <!-- MODAL -->
-    <div id="modal" class="modal">
-        <p id="modal-text"> 💖 Eres mi felicidad, Peque! 💖</p>
-        <p id="modal-text2"> 💖 Eres mi felicidad, Peque! 💖</p>
-        <button id="btn-close" class="btn-next mt-4">
-            Siguiente →
-        </button>
-    </div>
-
-    <!-- Formulario Fecha -->
-    <div class="p-4" id="Formulario">
-        <h2 class="text-lg font-semibold mb-2">Ingresa la fecha especial: 🗓️❤️</h2>
-        <form id="fecha-form" class="flex flex-col gap-3">
-            <input type="date" id="fecha-input" class="border p-2 rounded">
-            <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition">Validar</button>
-        </form>
-    </div>
-
-    <!-- Perfil de Instagram (Oculto hasta validar la fecha) -->
-    <div id="perfil" class="hidden">
-        <div class="flex justify-between items-center p-4 border-b border-gray-300 bg-white shadow-sm">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="h-8">
-            <strong class="text-lg">Ig 💗</strong>
-        </div>
-        
-        <div class="p-6">
-            <div class="flex items-center gap-5">
-                <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" alt="Perfil" class="w-24 h-20 rounded-full border-2 border-gray-300">
-                <div>
-                    <h2 class="text-xl font-semibold"> Mi amor! 🥰🥺</h2>
-                    <div class="flex gap-4 text-gray-600 mt-2">
-                        <p><strong>12</strong> Publicaciones</p>
-                        <p><strong>+999</strong> Seguidores</p>
-                        <p><strong>+999</strong> Siguiendo</p>
-                    </div>
+    <!-- MODAL FULL WIDTH -->
+    <div class="modal fade" id="modal-full-width" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content bg-black text-white">
+                <div class="modal-header border-gray-700">
+                    <h5 class="modal-title">Vista Previa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body flex justify-center items-center">
+                    <img id="modal-image" class="max-h-[80vh] hidden">
+                    <video id="modal-video" class="max-h-[80vh] hidden" controls autoplay></video>
                 </div>
             </div>
         </div>
-    <hr>
-        <!-- Historias Destacadas -->
-        <div class="flex gap-4 p-4 overflow-x-auto">
-            <div class="flex flex-col items-center">
-                <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.32.02_7ed71309.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
-                <p class="text-xs mt-1">Peque!😍</p>
+    </div>
+
+    <!-- Encabezado -->
+    <div class="flex justify-between items-center p-4 border-b border-gray-300 bg-white shadow-sm">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="h-8">
+        <strong class="text-lg">Ig 💗</strong>
+    </div>
+    
+    <!-- Perfil -->
+    <div class="p-6">
+        <div class="flex items-center gap-5">
+            <img src="public/images/perfil.jpg" alt="Perfil" class="w-24 h-24 rounded-full border-2 border-gray-300">
+            <div>
+                <h2 class="text-xl font-semibold"> Mi amor! 🥰🥺</h2>
+                <div class="flex gap-4 text-gray-600 mt-2">
+                    <p><strong>12</strong> Publicaciones</p>
+                    <p><strong>+999</strong> Seguidores</p>
+                    <p><strong>+999</strong> Siguiendo</p>
+                </div>
             </div>
-            <div class="flex flex-col items-center">
-                <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.29.21_33ca8e9e.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
-                <p class="text-xs mt-1">🥰</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.16.47_5e66bf84.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
-                <p class="text-xs mt-1">🧃</p>
-            </div>
-        </div>
-        
-        <hr>
-        <div class="grid grid-cols-3 gap-1 p-2">
-            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-            
-            <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-                <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.45_18f96f27.mp4" type="video/mp4">
-            </video>
-    
-            <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-                <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.08_32df92f6.mp4" type="video/mp4">
-            </video>
-    
-            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_81a4e60e.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-    
-            <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-                <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.14_20fe7754.mp4" type="video/mp4">
-            </video>
-    
-            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.32.02_7ed71309.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-            
-            <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-                <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.11_b30ddf43.mp4" type="video/mp4">
-            </video>
-        
-            <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-                <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.04_3b1ea9a4.mp4" type="video/mp4">
-            </video>
-    
-            <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-                <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.46_25da9b1e.mp4" type="video/mp4">
-            </video>
-            
-            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.16_c205d95d.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-            
-            <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-                <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.26_db177289.mp4" type="video/mp4">
-            </video>
-            
-            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.29.50_d0afa478.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-            
-        </div>
-    
-        <!-- Contenedor de pantalla completa -->
-        <div id="fullscreen-container" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center" onclick="hideFullscreen()">
-            <img id="fullscreen-image" class="rounded-lg hidden">
-            <video id="fullscreen-video" class="rounded-lg hidden" controls autoplay></video>
         </div>
     </div>
 
+    <hr>
+
+    <!-- Historias Destacadas -->
+    <div class="flex gap-4 p-4 overflow-x-auto">
+        <div class="flex flex-col items-center">
+            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.32.02_7ed71309.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
+            <p class="text-xs mt-1">Peque!😍</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.29.21_33ca8e9e.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
+            <p class="text-xs mt-1">🥰</p>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.16.47_5e66bf84.jpg" class="w-16 h-16 rounded-full border-2 border-gray-300">
+            <p class="text-xs mt-1">🧃</p>
+        </div>
+    </div>
+    
+    <hr>
+
+    <div class="grid grid-cols-3 gap-1 p-2">
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+        
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.45_18f96f27.mp4" type="video/mp4">
+        </video>
+
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.08_32df92f6.mp4" type="video/mp4">
+        </video>
+
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_81a4e60e.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.14_20fe7754.mp4" type="video/mp4">
+        </video>
+
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.32.02_7ed71309.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+        
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.11_b30ddf43.mp4" type="video/mp4">
+        </video>
+    
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.04_3b1ea9a4.mp4" type="video/mp4">
+        </video>
+
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.46_25da9b1e.mp4" type="video/mp4">
+        </video>
+        
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.16_c205d95d.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+        
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.26_db177289.mp4" type="video/mp4">
+        </video>
+        
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.29.50_d0afa478.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
+        
+    </div>
+
+    <!-- Script para manejar el modal -->
     <script>
-        let intentos = 3;
-
-        document.getElementById('btn-close').addEventListener('click', function() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('perfil').classList.remove('hidden'); // Muestra el perfil después del modal
-        });
-
-        document.getElementById('fecha-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const fechaIngresada = document.getElementById('fecha-input').value;
-            
-            if (fechaIngresada === '2025-03-12') {
-                document.getElementById('modal-text').innerText = 'Muy bien, mi amor';
-                document.getElementById('modal-text2').innerText = 'Te quiero 💖';
-                document.getElementById('modal').style.display = 'flex';
-                document.getElementById('Formulario').setAttribute("hidden",true);
-            } else {
-                intentos--;
-                if (intentos > 0) {
-                    alert(`Intento incorrecto. Te quedan ${intentos} intentos.`);
-                } else {
-                    alert("🥺 Has agotado tus intentos");
-                    location.reload(); // Recarga la página
-                }
-            }
-        });
-
         function showFullscreen(src, type) {
-            const container = document.getElementById('fullscreen-container');
-            const img = document.getElementById('fullscreen-image');
-            const video = document.getElementById('fullscreen-video');
+            const modal = new bootstrap.Modal(document.getElementById('modal-full-width'));
+            const image = document.getElementById('modal-image');
+            const video = document.getElementById('modal-video');
 
             if (type === 'image') {
-                img.src = src;
-                img.classList.remove('hidden');
+                image.src = src;
+                image.classList.remove('hidden');
                 video.classList.add('hidden');
-                video.pause();
             } else if (type === 'video') {
                 video.src = src;
                 video.classList.remove('hidden');
-                img.classList.add('hidden');
-                video.play();
+                image.classList.add('hidden');
             }
 
-            container.classList.remove('hidden');
-        }
-
-        function hideFullscreen() {
-            const container = document.getElementById('fullscreen-container');
-            const video = document.getElementById('fullscreen-video');
-
-            container.classList.add('hidden');
-            video.pause();
-            video.currentTime = 0; // Reinicia el video cuando se cierre
+            modal.show();
         }
     </script>
+
 </body>
 </html>
