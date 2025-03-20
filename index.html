@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album - Instagram</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS de Tabler -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
+
+    <!-- JavaScript de Tabler (Opcional, solo si usas componentes interactivos) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js" defer></script>
+
     <style>
         /* Estilos del modal */
         .modal {
@@ -39,6 +45,9 @@
         .btn-next:hover {
             transform: scale(1.1);
         }
+        .active {
+            border-bottom: 2px solid #d62976;
+        }
     </style>
 </head>
 <body class="bg-white text-gray-900 max-w-sm mx-auto">
@@ -51,6 +60,26 @@
             Siguiente →
         </button>
     </div>
+
+    <!-- Modal para imágenes y videos -->
+<div id="modalView" class="modal" hidden>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Encabezado del Modal -->
+            <div class="modal-header">
+                <h5 class="modal-title">Visualizador de Contenido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+                <!-- <button type="button" class="close" onclick="closeModal()">&times;</button> -->
+            </div>
+            
+            <!-- Cuerpo del Modal -->
+            <div class="modal-body text-center">
+                <img id="modalImg" class="hidden img-fluid">
+                <video id="modalVideo" class="hidden" controls></video>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="flex justify-between items-center p-4 border-b border-gray-300 bg-white shadow-sm">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="h-8">
@@ -70,7 +99,9 @@
             </div>
         </div>
     </div>
-<hr>
+
+    <hr>
+
     <!-- Historias Destacadas -->
     <div class="flex gap-4 p-4 overflow-x-auto">
         <div class="flex flex-col items-center">
@@ -86,53 +117,50 @@
             <p class="text-xs mt-1">🧃</p>
         </div>
     </div>
-    
+
     <hr>
-    <div class="grid grid-cols-3 gap-1 p-2">
-        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-        
-        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.45_18f96f27.mp4" type="video/mp4">
-        </video>
 
-        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.08_32df92f6.mp4" type="video/mp4">
-        </video>
-
-        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_81a4e60e.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-
-        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.14_20fe7754.mp4" type="video/mp4">
-        </video>
-
-        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.32.02_7ed71309.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-        
-        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.11_b30ddf43.mp4" type="video/mp4">
-        </video>
-    
-        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.04_3b1ea9a4.mp4" type="video/mp4">
-        </video>
-
-        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.46_25da9b1e.mp4" type="video/mp4">
-        </video>
-        
-        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.16_c205d95d.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-        
-        <video class="h-24 w-full object-contain cursor-pointer" onclick="showFullscreen(this.querySelector('source').src, 'video')">
-            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.26_db177289.mp4" type="video/mp4">
-        </video>
-        
-        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.29.50_d0afa478.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="showFullscreen(this.src, 'image')">
-        
+    <!-- Botones de Publicaciones y Reels -->
+    <div class="flex justify-around p-4 border-b">
+        <button id="btn-photos" class="flex items-center gap-2 text-gray-600 active" onclick="showContent('photos')">
+            📷 Publicaciones
+        </button>
+        <button id="btn-reels" class="flex items-center gap-2 text-gray-600" onclick="showContent('videos')">
+            🎥 Reels
+        </button>
     </div>
 
-    <!-- Contenedor de pantalla completa -->
-    <div id="fullscreen-container" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex justify-center items-center" onclick="hideFullscreen()">
-        <img id="fullscreen-image" class="rounded-lg hidden">
-        <video id="fullscreen-video" class="rounded-lg hidden" controls autoplay></video>
+    <!-- Contenedor de contenido -->
+    <div id="photos" class="grid grid-cols-3 gap-1 p-2">
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="openModal(this)">
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_81a4e60e.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="openModal(this)">
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.32.02_7ed71309.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="openModal(this)">
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.16_c205d95d.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="openModal(this)">
+        <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.29.50_d0afa478.jpg" class="h-24 w-full object-cover cursor-pointer" onclick="openModal(this)">
+    </div>
+
+    <div id="videos" class="grid grid-cols-3 gap-1 p-2 hidden">
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="openModal(this)">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.45_18f96f27.mp4" type="video/mp4">
+        </video>
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="openModal(this)">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.08_32df92f6.mp4" type="video/mp4">
+        </video>
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="openModal(this)">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.14_20fe7754.mp4" type="video/mp4">
+        </video>
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="openModal(this)">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.11_b30ddf43.mp4" type="video/mp4">
+        </video>
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="openModal(this)">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.32.04_3b1ea9a4.mp4" type="video/mp4">
+        </video>
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="openModal(this)">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.16.46_25da9b1e.mp4" type="video/mp4">
+        </video>
+        <video class="h-24 w-full object-contain cursor-pointer" onclick="openModal(this)">
+            <source src="public/images/Video de WhatsApp 2025-03-19 a las 16.08.26_db177289.mp4" type="video/mp4">
+        </video>
     </div>
 
     <script>
@@ -140,34 +168,54 @@
             document.getElementById('modal').style.display = 'none';
         });
 
-        function showFullscreen(src, type) {
-            const container = document.getElementById('fullscreen-container');
-            const img = document.getElementById('fullscreen-image');
-            const video = document.getElementById('fullscreen-video');
+        function showContent(type) {
+            document.getElementById('photos').classList.add('hidden');
+            document.getElementById('videos').classList.add('hidden');
+            document.getElementById('btn-photos').classList.remove('active');
+            document.getElementById('btn-reels').classList.remove('active');
 
-            if (type === 'image') {
-                img.src = src;
-                img.classList.remove('hidden');
-                video.classList.add('hidden');
-                video.pause();
-            } else if (type === 'video') {
-                video.src = src;
-                video.classList.remove('hidden');
-                img.classList.add('hidden');
-                video.play();
+            if (type === 'photos') {
+                document.getElementById('photos').classList.remove('hidden');
+                document.getElementById('btn-photos').classList.add('active');
+            } else {
+                document.getElementById('videos').classList.remove('hidden');
+                document.getElementById('btn-reels').classList.add('active');
             }
-
-            container.classList.remove('hidden');
         }
 
-        function hideFullscreen() {
-            const container = document.getElementById('fullscreen-container');
-            const video = document.getElementById('fullscreen-video');
+        function openModal(element) {
+        const modalView = document.getElementById('modalView');
+        const modalImg = document.getElementById('modalImg');
+        const modalVideo = document.getElementById('modalVideo');
 
-            container.classList.add('hidden');
-            video.pause();
-            video.currentTime = 0; // Reinicia el video cuando se cierre
+        modalView.hidden = false;
+
+        if (element.tagName === 'IMG') {
+            modalImg.src = element.src;
+            modalImg.classList.remove('hidden');
+            modalVideo.classList.add('hidden');
+            modalVideo.pause();
+        } else if (element.tagName === 'VIDEO') {
+            const source = element.querySelector('source').src;
+            modalVideo.src = source;
+            modalVideo.classList.remove('hidden');
+            modalImg.classList.add('hidden');
+            modalVideo.play();
         }
+    }
+
+    function closeModal() {
+        const modalView = document.getElementById('modalView');
+        const modalImg = document.getElementById('modalImg');
+        const modalVideo = document.getElementById('modalVideo');
+
+        modalView.hidden = true;
+        modalImg.classList.add('hidden');
+        modalVideo.classList.add('hidden');
+        modalVideo.pause();
+        modalVideo.src = ""; // Reiniciar el video para que no siga reproduciéndose en segundo plano
+    }
     </script>
+
 </body>
 </html>
