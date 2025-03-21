@@ -7,12 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- CSS de Tabler -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
-
     <!-- JavaScript de Tabler (Opcional, solo si usas componentes interactivos) -->
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js" defer></script>
-
+    
     <style>
-        /* Estilos del modal */
+        /* Estilos del modal de mensaje principal */
         .modal {
             position: fixed;
             top: 0;
@@ -52,41 +51,39 @@
 </head>
 <body class="bg-white text-gray-900 max-w-sm mx-auto">
     
-    <!-- MODAL -->
+    <!-- MODAL de mensaje -->
     <div id="modal" class="modal">
-        
         <p> Y mi beso? 🥺💖</p>
-        
         <button id="btn-close" class="btn-next mt-4">
             Siguiente →
         </button>
     </div>
 
     <!-- Modal para imágenes y videos -->
-<div id="modalView" class="modal" hidden>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Encabezado del Modal -->
-            <div class="modal-header">
-                <h5 class="modal-title">Visualizador de Contenido</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
-                <!-- <button type="button" class="close" onclick="closeModal()">&times;</button> -->
-            </div>
-            
-            <!-- Cuerpo del Modal -->
-            <div class="modal-body text-center">
-                <img id="modalImg" class="hidden img-fluid">
-                <video id="modalVideo" class="hidden" controls></video>
+    <div id="modalView" class="modal" hidden>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Encabezado del Modal -->
+                <div class="modal-header">
+                    <h5 class="modal-title">Visualizador de Contenido</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+                </div>
+                <!-- Cuerpo del Modal -->
+                <div class="modal-body text-center">
+                    <img id="modalImg" class="hidden img-fluid">
+                    <video id="modalVideo" class="hidden" controls playsinline></video>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Header -->
     <div class="flex justify-between items-center p-4 border-b border-gray-300 bg-white shadow-sm">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="h-8">
         <strong class="text-lg">Ig 💗</strong>
     </div>
     
+    <!-- Perfil -->
     <div class="p-6">
         <div class="flex items-center gap-5">
             <img src="public/images/Imagen de WhatsApp 2025-03-19 a las 16.08.35_16b9d37b.jpg" alt="Perfil" class="w-24 h-20 rounded-full border-2 border-gray-300">
@@ -185,37 +182,37 @@
         }
 
         function openModal(element) {
-        const modalView = document.getElementById('modalView');
-        const modalImg = document.getElementById('modalImg');
-        const modalVideo = document.getElementById('modalVideo');
+            const modalView = document.getElementById('modalView');
+            const modalImg = document.getElementById('modalImg');
+            const modalVideo = document.getElementById('modalVideo');
 
-        modalView.hidden = false;
+            modalView.hidden = false;
 
-        if (element.tagName === 'IMG') {
-            modalImg.src = element.src;
-            modalImg.classList.remove('hidden');
+            if (element.tagName === 'IMG') {
+                modalImg.src = element.src;
+                modalImg.classList.remove('hidden');
+                modalVideo.classList.add('hidden');
+                modalVideo.pause();
+            } else if (element.tagName === 'VIDEO') {
+                const source = element.querySelector('source').src;
+                modalVideo.src = source;
+                modalVideo.classList.remove('hidden');
+                modalImg.classList.add('hidden');
+                modalVideo.play();
+            }
+        }
+
+        function closeModal() {
+            const modalView = document.getElementById('modalView');
+            const modalImg = document.getElementById('modalImg');
+            const modalVideo = document.getElementById('modalVideo');
+
+            modalView.hidden = true;
+            modalImg.classList.add('hidden');
             modalVideo.classList.add('hidden');
             modalVideo.pause();
-        } else if (element.tagName === 'VIDEO') {
-            const source = element.querySelector('source').src;
-            modalVideo.src = source;
-            modalVideo.classList.remove('hidden');
-            modalImg.classList.add('hidden');
-            modalVideo.play();
+            modalVideo.src = ""; // Reiniciar el video para que no siga reproduciéndose en segundo plano
         }
-    }
-
-    function closeModal() {
-        const modalView = document.getElementById('modalView');
-        const modalImg = document.getElementById('modalImg');
-        const modalVideo = document.getElementById('modalVideo');
-
-        modalView.hidden = true;
-        modalImg.classList.add('hidden');
-        modalVideo.classList.add('hidden');
-        modalVideo.pause();
-        modalVideo.src = ""; // Reiniciar el video para que no siga reproduciéndose en segundo plano
-    }
     </script>
 
 </body>
